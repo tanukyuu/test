@@ -3,9 +3,9 @@
   hosts: all
   vars:
     my_list:
-      - item1
-      - item2
-      - item3
+      - car
+      - motorbike
+      - bicycle
   tasks:
     - name: Task 1
       debug:
