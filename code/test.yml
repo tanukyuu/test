@@ -10,6 +10,7 @@
         password: qyf6ikt9y5ph
         query:
           sysparm_fields: ip_service_instance
+          ip_service_instance: "ISNOTEMPTY"
       register: result
 
     - name: Print CI list
