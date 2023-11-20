@@ -1,0 +1,19 @@
+---
+- name: Example Playbook
+  hosts: all
+  vars:
+    my_list:
+      - item1
+      - item2
+      - item3
+  tasks:
+    - name: Task 1
+      debug:
+        msg: "This is task 1"
+      loop: "{{ my_list }}"
+      loop_control:
+        loop_var: item
+
+    - name: Task 2
+      debug:
+        msg: "This is task 2"
