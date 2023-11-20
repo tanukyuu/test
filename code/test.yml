@@ -5,7 +5,7 @@
   tasks:
     - name: Get CI list from ServiceNow
       servicenow.itsm.configuration_item_info:
-         sys_class_name: cmdb_ci_ip_switch
+         sys_class_name: cmdb_ci_ip_service_instance
         
       register: result
 
