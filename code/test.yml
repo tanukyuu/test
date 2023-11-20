@@ -5,9 +5,6 @@
   tasks:
     - name: Get CI list from ServiceNow
       servicenow.itsm.configuration_item_info:
-        instance: your_instance
-        username: your_username
-        password: your_password
       register: result
 
     - name: Print CI list
