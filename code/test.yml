@@ -5,12 +5,8 @@
   tasks:
     - name: Get CI list from ServiceNow
       servicenow.itsm.configuration_item_info:
-        instance: https://ansible.service-now.com
-        username: qyf6ikt9y5ph
-        password: qyf6ikt9y5ph
-        query:
-          sysparm_fields: ip_service_instance
-          ip_service_instance: "ISNOTEMPTY"
+         sys_class_name: cmdb_ci_ip_switch
+        
       register: result
 
     - name: Print CI list
