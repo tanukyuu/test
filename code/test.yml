@@ -8,10 +8,6 @@
         sys_class_name: cmdb_ci_ip_address
       register: result
 
-    - name: Create inventory
-      set_fact:
-        inventory: "{{ {'all': {'hosts': result | map(attribute='ip_address') | list}} | to_json }}"
-
     - name: Print inventory
       debug:
-        var: inventory
+        var: result 
