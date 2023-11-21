@@ -5,7 +5,7 @@
     controller_url: "https://controller-443-1xugkrukn1gp.env.play.instruqt.com/"
     username: "admin"
     password: "ansible123!"
-    ip_to_check: "192.168.1.10"  # The IP address to check
+    ip_to_check: "192.168.1.0"  # The IP address to check
   tasks:
     - name: Retrieve inventories
       uri:
