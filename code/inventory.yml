@@ -4,7 +4,7 @@
   vars:
     controller_url: "https://controller-443-ygqo5kmkth9i.env.play.instruqt.com/"
     username: "admin"
-    password: "learn_ansible"
+    password: "ansible123!"
     inventory_name: "My Inventory"
     hosts:
       - name: "host1"
