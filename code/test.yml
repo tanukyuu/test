@@ -10,7 +10,7 @@
 
     - name: Extract skip_sync attribute
       set_fact:
-        skip_sync_values: "{{ result.records | map(attribute='skip_sync') | list }}"
+        skip_sync_values: "{{ result.records | map(attribute='ip_address') | list }}"
 
     - name: Print skip_sync values
       debug:
