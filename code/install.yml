@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Install awx.awx collection
+      command: ansible-galaxy collection install awx.awx
