@@ -11,6 +11,6 @@
     - name: Extract IP address attribute
       set_fact:
         ip_address_values: "{{ result.records | map(attribute='ip_address') | list }}"
-    -name: debug value
+    - name: debug value
       debug:
         var: ip_address_values
