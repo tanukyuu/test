@@ -2,23 +2,20 @@
 - hosts: localhost
   gather_facts: no
   vars:
-    ip_to_check: "192.168.1.1"  # The IP address to check
-    inventory:  # The inventory
-      - name: "host1"
-        ip: "172.34.2.0"
-        group: "web"
-      - name: "host2"
-        ip: "192.168.1.1"
-        group: "web"
-      - name: "host3"
-        ip: "192.168.255.0"
-        group: "data"
+    controller_url: "https://controller-443-ygqo5kmkth9i.env.play.instruqt.com/"
+    username: "admin"
+    password: "ansible123!"
   tasks:
-    - name: Check if IP address is in inventory
-      debug:
-        msg: "The IP address {{ ip_to_check }} is in the inventory."
-      when: ip_to_check in (host.ip for host in inventory)
+    - name: Retrieve inventories
+      uri:
+        url: "{{ controller_url }}/api/v2/inventories/"
+        method: GET
+        user: "{{ username }}"
+        password: "{{ password }}"
+        force_basic_auth: yes
+        return_content: yes
+      register: inventories
 
-    - name: Print inventory
+    - name: Print inventories
       debug:
-        var: inventory
+        var: inventories.json.results
