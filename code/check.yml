@@ -29,8 +29,7 @@
       loop: "{{ inventories.json.results }}"
 
     - set_fact:
-        ip_addresses: "{{ hosts.results | map(attribute='json.results') | map(attribute='name') | list }}"
-
+        ip_addresses: "{{ hosts.results | map(attribute='json.results') | flatten | map(attribute='name') | list }}"
     - name: Check if IP address is in list
       debug:
         msg: "The IP address {{ ip_to_check }} is in the list."
