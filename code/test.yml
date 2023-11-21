@@ -24,3 +24,12 @@
     - name: Print inventory
       debug:
         var: inventory
+    - name: Add hosts to inventory in Ansible Automation Platform
+      tower_host:
+        name: "{{ item }}"
+        inventory: "Demo Inventory"
+        state: present
+        tower_username: "admin"
+        tower_password: "ansible123!"
+        tower_host: "https://controller-443-jw4x7wxvoeiy.env.play.instruqt.com/"
+      loop: "{{ ip_address_values }}"
