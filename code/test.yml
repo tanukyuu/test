@@ -7,6 +7,11 @@
       servicenow.itsm.configuration_item_info:
         sys_class_name: cmdb_ci_ip_address
       register: result
-    - name: Print CI list
+
+    - name: Extract skip_sync attribute
+      set_fact:
+        skip_sync_values: "{{ result.records | map(attribute='skip_sync') | list }}"
+
+    - name: Print skip_sync values
       debug:
-        var: result
+        var: skip_sync_values
