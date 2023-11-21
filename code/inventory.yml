@@ -2,7 +2,7 @@
 - hosts: localhost
   gather_facts: no
   vars:
-    controller_url: "https://controller-443-ygqo5kmkth9i.env.play.instruqt.com/"
+    credential_name: "aap"
     inventory_name: "My Inventory"
     hosts:
       - name: "host1"
@@ -15,12 +15,17 @@
         ip: "192.168.255.0"
         group: "data"
   tasks:
+    - name: Retrieve credential
+      set_fact:
+        credential: "{{ lookup('awx.awx.tower', 'credentials', query_params={'name': credential_name})[0] }}"
+
     - name: Create inventory
       uri:
-        url: "{{ controller_url }}/api/v2/inventories/"
+        url: "{{ credential.inputs.url }}/api/v2/inventories/"
         method: POST
-        headers:
-          Authorization: "Bearer {{ lookup('env', 'TOWER_OAUTH_TOKEN') }}"
+        user: "{{ credential.inputs.username }}"
+        password: "{{ credential.inputs.password }}"
+        force_basic_auth: yes
         body_format: json
         body:
           name: "{{ inventory_name }}"
@@ -28,4 +33,4 @@
         status_code: 201
       register: inventory
 
-    # Add the remaining tasks here, and include the Authorization header in each task
+    # Add the remaining tasks here, and include the user and password in each task
