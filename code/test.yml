@@ -19,9 +19,9 @@
     - name: Print inventory
       debug:
         var: inventory
-        
+
     - name: Add hosts to inventory in Ansible Automation Platform
-      tower_host:
+       awx.awx.tower_host:
         name: "{{ item }}"
         inventory: "Demo Inventory"
         state: present
