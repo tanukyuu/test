@@ -8,4 +8,4 @@
         sys_class_name: cmdb_ci_ip_address
       register: result
       debug:
-        var: inventory
+        var: result
