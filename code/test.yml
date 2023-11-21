@@ -16,6 +16,11 @@
       set_fact:
         inventory: "{{ {'all': {'hosts': ip_address_values}} }}"
 
+    - name: Write inventory to file
+      copy:
+        content: "{{ inventory | to_nice_yaml }}"
+        dest: "/path/to/inventory.yml"
+
     - name: Print inventory
       debug:
         var: inventory
