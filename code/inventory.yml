@@ -3,7 +3,6 @@
   gather_facts: no
   vars:
     controller_url: "https://controller-443-ygqo5kmkth9i.env.play.instruqt.com/"
-    credential_name: "aap"
     inventory_name: "My Inventory"
     hosts:
       - name: "host1"
@@ -16,16 +15,12 @@
         ip: "192.168.255.0"
         group: "data"
   tasks:
-    - name: Retrieve credential
-      set_fact:
-        credential: "{{ lookup('awx.awx.tower', 'credentials', query_params={'name': credential_name})[0] }}"
-
     - name: Create inventory
       uri:
         url: "{{ controller_url }}/api/v2/inventories/"
         method: POST
         headers:
-          Authorization: "Bearer {{ credential.inputs.token }}"
+          Authorization: "Bearer {{ lookup('env', 'TOWER_OAUTH_TOKEN') }}"
         body_format: json
         body:
           name: "{{ inventory_name }}"
