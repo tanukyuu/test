@@ -8,10 +8,14 @@
         sys_class_name: cmdb_ci_ip_address
       register: result
 
-    - name: Extract skip_sync attribute
+    - name: Extract IP address attribute
       set_fact:
-        skip_sync_values: "{{ result.records | map(attribute='ip_address') | list }}"
+        ip_address_values: "{{ result.records | map(attribute='ip_address') | list }}"
 
-    - name: Print skip_sync values
+    - name: Create inventory
+      set_fact:
+        inventory: "{{ {'all': {'hosts': ip_address_values}} }}"
+
+    - name: Print inventory
       debug:
-        var: skip_sync_values
+        var: inventory
