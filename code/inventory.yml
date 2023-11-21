@@ -1,3 +1,59 @@
-[web]
-node1
-node2
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    controller_url: "https://controller-443-ygqo5kmkth9i.env.play.instruqt.com/"
+    username: "admin"
+    password: "learn_ansible"
+    inventory_name: "My Inventory"
+    hosts:
+      - name: "host1"
+        ip: "172.34.2.0"
+        group: "web"
+      - name: "host2"
+        ip: "192.168.1.1"
+        group: "web"
+      - name: "host3"
+        ip: "192.168.255.0"
+        group: "data"
+  tasks:
+    - name: Create inventory
+      uri:
+        url: "{{ controller_url }}/api/v2/inventories/"
+        method: POST
+        user: "{{ username }}"
+        password: "{{ password }}"
+        body_format: json
+        body:
+          name: "{{ inventory_name }}"
+          organization: 1
+        status_code: 201
+      register: inventory
+
+    - name: Add hosts to inventory
+      uri:
+        url: "{{ controller_url }}/api/v2/hosts/"
+        method: POST
+        user: "{{ username }}"
+        password: "{{ password }}"
+        body_format: json
+        body:
+          name: "{{ item.name }}"
+          inventory: "{{ inventory.json.id }}"
+          variables: "ansible_host: {{ item.ip }}"
+        status_code: 201
+      loop: "{{ hosts }}"
+
+    - name: Add hosts to groups
+      uri:
+        url: "{{ controller_url }}/api/v2/groups/"
+        method: POST
+        user: "{{ username }}"
+        password: "{{ password }}"
+        body_format: json
+        body:
+          name: "{{ item.group }}"
+          inventory: "{{ inventory.json.id }}"
+          hosts: ["{{ item.name }}"]
+        status_code: 201
+      loop: "{{ hosts }}"
