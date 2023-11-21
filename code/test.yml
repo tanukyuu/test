@@ -11,14 +11,7 @@
     - name: Extract IP address attribute
       set_fact:
         ip_address_values: "{{ result.records | map(attribute='ip_address') | list }}"
+        
     - name: Debug IP address values
       debug:
         var: ip_address_values
-
-    - name: Create inventory
-      set_fact:
-        inventory: "{{ {'all': {'hosts': ip_address_values}} }}"
-
-    - name: Print inventory
-      debug:
-        var: inventory
