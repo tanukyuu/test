@@ -7,6 +7,6 @@
       servicenow.itsm.configuration_item_info:
         sys_class_name: cmdb_ci_ip_address
       register: result
-     - name: Print CI list
+    - name: Print CI list
       debug:
         var: result
