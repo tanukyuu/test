@@ -1,10 +1,8 @@
----
-- hosts: localhost
-  gather_facts: no
   vars:
     controller_url: "https://controller-443-ygqo5kmkth9i.env.play.instruqt.com/"
     username: "admin"
     password: "ansible123!"
+    ip_to_check: "192.168.1.1"  # The IP address to check
   tasks:
     - name: Retrieve inventories
       uri:
@@ -16,6 +14,21 @@
         return_content: yes
       register: inventories
 
-    - name: Print inventories
+    - name: Retrieve hosts for each inventory
+      uri:
+        url: "{{ controller_url }}/api/v2/inventories/{{ item.id }}/hosts/"
+        method: GET
+        user: "{{ username }}"
+        password: "{{ password }}"
+        force_basic_auth: yes
+        return_content: yes
+      register: hosts
+      loop: "{{ inventories.json.results }}"
+
+    - set_fact:
+        ip_addresses: "{{ hosts.results | map(attribute='json.results') | map(attribute='ansible_host') | list }}"
+
+    - name: Check if IP address is in list
       debug:
-        var: inventories.json.results
+        msg: "The IP address {{ ip_to_check }} is in the list."
+      when: ip_to_check in ip_addresses
