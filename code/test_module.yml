@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Check if awx.awx collection is installed
+      command: ansible-galaxy collection list
+      register: output
+
+    - name: Print message if awx.awx is installed
+      debug:
+        msg: "The awx.awx collection is installed."
+      when: "'awx.awx' in output.stdout_lines"
+
+    - name: Print message if awx.awx is not installed
+      debug:
+        msg: "The awx.awx collection is not installed."
+      when: "'awx.awx' not in output.stdout_lines"
