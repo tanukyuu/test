@@ -9,7 +9,7 @@
     - name: Install Apache
       yum:
         name: httpd
-        state: Latest
+        state: latest
     - name: Ensure Apache is running
       service:
         name: httpd
