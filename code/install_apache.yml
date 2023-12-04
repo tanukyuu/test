@@ -1,6 +1,6 @@
 ---
 - name: Install Apache on EC2
-  hosts: 34.219.62.150
+  hosts: ec2-34-219-62-150.us-west-2.compute.amazonaws.com
   become: yes
   tasks: 
     - name: Update package
