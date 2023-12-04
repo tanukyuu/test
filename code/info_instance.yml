@@ -1,0 +1,14 @@
+---
+- name: Create AWS Resource
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: retrieve information all instances
+      amazon.aws.ec2_instance_info:
+        region: "{ec2_region|default('us-east-1')}"
+      register: ec2_info
+
+    - name: print information all instances
+      debug:
+        msg: "{ec2_info}"
