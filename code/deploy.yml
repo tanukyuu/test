@@ -1,11 +1,8 @@
 ---
-- name: Deploy Jinja2 Template
-  host: ec2-34-219-62-150.us-west-2.compute.amazonaws.com
-  become: yes
-  vars:
-    file_path: "/var/www/html"
+- name: Deploy Jinja2 template
+  hosts: localhost
   tasks:
-    - name: Deploy jinja2 template
+    - name: Apply Jinja2 template
       template:
-        src: 'helloworld.j2'
-        dest: "{{file_path}}/index.html"
+        src: helloworld.j2
+        dest: /var/www/html/index.html
