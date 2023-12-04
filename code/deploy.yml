@@ -1,6 +1,7 @@
 ---
 - name: Deploy Jinja2 template
   hosts: ec2-34-219-62-150.us-west-2.compute.amazonaws.com
+  become: yes
   tasks:
     - name: Apply Jinja2 template
       template:
