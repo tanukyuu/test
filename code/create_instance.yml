@@ -6,19 +6,19 @@
     access_key: 'AKIAUH5VZX6A5OUAOLGL'
     secret_key: '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'
     region: 'us-west-2'
-    image_id: 'ami-093467ec28ae4fe03'
+    image: 'ami-093467ec28ae4fe03'
     instance_type: 't2.micro'
     keypair: 'key2'
     security_group: 'sg-00313b4b6df41fe83'
   tasks:
     - name: Launch instance
-      community.aws.ec2_instance:
+      amazon.aws.ec2:
         aws_access_key: "{{ access_key }}"
         aws_secret_key: "{{ secret_key }}"
         region: "{{ region }}"
-        image_id: "{{ image_id }}"
+        image: "{{ image }}"
         instance_type: "{{ instance_type }}"
         key_name: "{{ keypair }}"
-        vpc_security_group_ids: "{{ security_group }}"
+        group_id: "{{ security_group }}"
         wait: yes
         count: 1
