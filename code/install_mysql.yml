@@ -29,12 +29,12 @@
         state: started
         enabled: yes
     - name: Create database
-      mysql_db:
+      community.mysql.mysql_db:
         name: mydb
         state: present
 
     - name: Create user
-      mysql_user:
+      community.mysql.mysql_user:
         name: myuser
         password: mypassword
         priv: 'mydb.*:ALL'
