@@ -8,7 +8,7 @@
     region: 'us-west-2'
     image_id: 'ami-093467ec28ae4fe03'
     instance_type: 't2.micro'
-    keypair: 'key2'
+    keypair: 'first_key'
     security_group: 'sg-00313b4b6df41fe83'
   tasks:
     - name: Launch instance
