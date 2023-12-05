@@ -11,7 +11,7 @@
         update_cache: yes
     - name: Install MySQL
       yum:
-        name: mysql
+        name: mysql-server
         state: present
     - name: Start MySQL
       service:
