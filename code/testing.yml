@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Check if community.mysql is installed
+      command: ansible-galaxy collection list community.mysql
+      register: result
+      failed_when: "'community.mysql' not in result.stdout"
