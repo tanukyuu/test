@@ -2,7 +2,7 @@
 - hosts: localhost
   gather_facts: no
   tasks:
-    - name: Show collection paths
-      command: ansible-config dump | grep COLLECTIONS_PATHS
+    - name: Check if community.mysql is installed
+      command: ansible-galaxy collection list community.mysql
       register: result
-    - debug: var=result.stdout_lines
+      failed_when: "'community.mysql' not in result.stdout"
