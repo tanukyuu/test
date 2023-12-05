@@ -28,14 +28,15 @@
         name: mysqld
         state: started
         enabled: yes
-    - name: Create database
-      community.mysql.mysql_db:
-        name: mydb
-        state: present
-
     - name: Create user
       community.mysql.mysql_user:
         name: myuser
         password: mypassword
         priv: 'mydb.*:ALL'
         state: present
+    - name: Create database
+      community.mysql.mysql_db:
+        name: mydb
+        state: present
+        login_user: myuser
+        login_password: mypassword
