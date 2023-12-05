@@ -16,7 +16,7 @@
         aws_access_key: "{{ access_key }}"
         aws_secret_key: "{{ secret_key }}"
         region: "{{ region }}"
-        image_id: "{{ image }}"
+        image_id: "{{ image_id }}"
         instance_type: "{{ instance_type }}"
         key_name: "{{ keypair }}"
         vpc_security_group_ids: "{{ security_group }}"
