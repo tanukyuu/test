@@ -1,0 +1,31 @@
+---
+- name: Install MySQL
+  hosts: localhost
+  gather_facts: False
+  become: yes
+  tasks:
+    - name: Update package
+      yum:
+        name: '*'
+        state: latest
+        update_cache: yes
+    - name: Install MySQL
+      yum:
+        name: mysql
+        state: present
+    - name: Start MySQL
+      service:
+        name: mysqld
+        state: started
+        enabled: yes
+    - name: Create database
+      mysql_db:
+        name: mydb
+        state: present
+
+    - name: Create user
+      mysql_user:
+        name: myuser
+        password: mypassword
+        priv: 'mydb.*:ALL'
+        state: present
