@@ -3,8 +3,6 @@
   hosts: localhost
   gather_facts: False
   vars:
-    access_key: 'AKIAUH5VZX6A5OUAOLGL'
-    secret_key: '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'
     region: 'us-west-2'
     image_id: 'ami-093467ec28ae4fe03'
     instance_type: 't2.micro'
@@ -13,8 +11,6 @@
   tasks:
     - name: Launch instance
       amazon.aws.ec2_instance:
-        aws_access_key: "{{ access_key }}"
-        aws_secret_key: "{{ secret_key }}"
         region: "{{ region }}"
         image_id: "{{ image_id }}"
         instance_type: "{{ instance_type }}"
