@@ -19,6 +19,6 @@
         image_id: "{{ image_id }}"
         instance_type: "{{ instance_type }}"
         key_name: "{{ keypair }}"
-        security_group: "{{ security_group }}"
+        security_groups: "{{ security_group }}"
         wait: yes
         count: 1
