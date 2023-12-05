@@ -8,6 +8,7 @@
     instance_type: 't2.micro'
     keypair: 'first_key'
     security_group: 'sg-00313b4b6df41fe83'
+    instance_name: 'MyInstance'
   tasks:
     - name: Launch instance
       amazon.aws.ec2_instance:
@@ -18,3 +19,4 @@
         security_groups: "{{ security_group }}"
         wait: yes
         count: 1
+        name: "{{ instance_name }}" 
