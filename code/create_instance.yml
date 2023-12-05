@@ -3,13 +3,13 @@
   hosts: localhost
   gather_facts: False
   vars:
-    access_key: 'YOUR_ACCESS_KEY'
-    secret_key: 'YOUR_SECRET_KEY'
+    access_key: 'AKIAUH5VZX6A5OUAOLGL'
+    secret_key: 'c9dN/bPFBwuTvYfdR+LTPzs4oOUmqL5F7xeX/ZYu'
     region: 'us-west-2'
-    image: 'ami-0c55b159cbfafe1f0'
+    image: 'ami-093467ec28ae4fe03'
     instance_type: 't2.micro'
-    keypair: 'your-keypair'
-    security_group: 'sg-0abcd1234efgh5678'
+    keypair: 'key2'
+    security_group: 'sg-00313b4b6df41fe83'
   tasks:
     - name: Launch instance
       ec2:
