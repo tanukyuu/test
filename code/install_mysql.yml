@@ -5,9 +5,12 @@
   tasks:
     - name: Install necessary packages
       yum:
-        name: ['python3-psycopg2', 'postgresql', 'postgresql-contrib']
+        name: ['postgresql', 'postgresql-server', 'postgresql-devel', 'postgresql-contrib', 'postgresql-docs']
         state: present
         update_cache: yes
+
+    - name: Initialize PostgreSQL
+      command: postgresql-setup initdb
 
     - name: Ensure PostgreSQL service is running
       service:
