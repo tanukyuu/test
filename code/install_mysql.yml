@@ -4,7 +4,7 @@
   become: yes
   tasks:
     - name: Install necessary packages
-      apt:
+      yum:
         name: ['python3-psycopg2', 'postgresql', 'postgresql-contrib']
         state: present
         update_cache: yes
