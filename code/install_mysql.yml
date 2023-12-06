@@ -3,6 +3,9 @@
   hosts: ec2-52-36-238-46.us-west-2.compute.amazonaws.com
   become: yes
   tasks:
+    - name: Enable PostgreSQL Amazon Extras repository
+      command: amazon-linux-extras enable postgresql10
+
     - name: Install necessary packages
       yum:
         name: ['postgresql', 'postgresql-server']
@@ -10,7 +13,7 @@
         update_cache: yes
 
     - name: Initialize PostgreSQL
-      command: /usr/bin/postgresql-setup --initdb
+      command: /usr/bin/postgresql-10-setup initdb
 
     - name: Ensure PostgreSQL service is running
       service:
