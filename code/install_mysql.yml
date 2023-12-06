@@ -12,8 +12,15 @@
         state: present
         update_cache: yes
 
+    - name: Find PostgreSQL setup script
+      find:
+        paths: "/"
+        patterns: 'postgresql-*-setup'
+        file_type: file
+      register: setup_script
+
     - name: Initialize PostgreSQL
-      command: /usr/bin/postgresql-10-setup initdb
+      command: "{{ setup_script.files[0].path }} initdb"
 
     - name: Ensure PostgreSQL service is running
       service:
