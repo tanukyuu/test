@@ -1,35 +1,10 @@
 - hosts: localhost
   gather_facts: no
   tasks:
-    - name: Check if path is a directory
-      command: test -d /usr/share/ansible/collections/ansible_collections
-      register: result
-      ignore_errors: true
-
-    - name: Print result
-      debug:
-        var: result
-
-    - name: Check if directory is readable
-      command: test -r /usr/share/ansible/collections/ansible_collections
-      register: result
-      ignore_errors: true
-
-    - name: Print result
-      debug:
-        var: result
-
-    - name: Print path
-      debug:
-        msg: "/usr/share/ansible/collections/ansible_collections"
-
-    - name: Find collections in ansible_collections
-      find:
-        paths: "/usr/share/ansible/collections/ansible_collections"
-        recurse: yes
-        file_type: directory
+    - name: List collections
+      command: ls -l /usr/share/ansible/collections/ansible_collections
       register: collections
 
     - name: Print collections
       debug:
-        var: collections.files
+        var: collections.stdout_lines
