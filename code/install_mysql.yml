@@ -1,6 +1,6 @@
 ---
 - name: Install PostgreSQL
-  hosts: ec2-52-36-238-46.us-west-2.compute.amazonaws.com
+  hosts: ec2-35-88-142-250.us-west-2.compute.amazonaws.com
   become: yes
   tasks:
     - name: Enable PostgreSQL Amazon Extras repository
