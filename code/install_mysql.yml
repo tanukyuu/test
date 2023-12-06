@@ -12,8 +12,29 @@
         state: present
         update_cache: yes
 
-    - name: Ensure PostgreSQL service is running
+    - name: Start PostgreSQL service
       service:
         name: postgresql
         state: started
         enabled: yes
+      ignore_errors: yes
+
+    - name: Get PostgreSQL service status
+      command: systemctl status postgresql.service
+      register: service_status
+      changed_when: false
+      ignore_errors: true
+
+    - name: Print PostgreSQL service status
+      debug:
+        msg: "{{ service_status.stdout_lines }}"
+
+    - name: Get system logs
+      command: journalctl -xe
+      register: system_logs
+      changed_when: false
+      ignore_errors: true
+
+    - name: Print system logs
+      debug:
+        msg: "{{ system_logs.stdout_lines }}"
