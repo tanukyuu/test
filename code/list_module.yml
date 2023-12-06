@@ -1,20 +1,11 @@
-- hosts: localhost
+- hosts: awx
   gather_facts: no
   tasks:
-    - name: Get list of collections
-      command: ls /usr/share/ansible/collections/ansible_collections
-      register: collections
+    - name: Fetch AWX configuration file
+      slurp:
+        src: /etc/tower/settings.py
+      register: awx_config
 
-    - name: Print collections
+    - name: Print AWX configuration file
       debug:
-        var: collections.stdout_lines
-
-    - name: List sub-collections in collections
-      command: ls -l /usr/share/ansible/collections/ansible_collections/{{ item }}
-      loop: "{{ collections.stdout_lines }}"
-      register: sub_collections
-      ignore_errors: true
-
-    - name: Print sub-collections
-      debug:
-        var: sub_collections.results
+        var: awx_config.content | b64decode
