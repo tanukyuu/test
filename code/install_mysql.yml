@@ -1,26 +1,28 @@
 ---
 - name: Install PostgreSQL
-  hosts: ec2-35-88-142-250.us-west-2.compute.amazonaws.com
+  hosts: ec2-34-222-48-92.us-west-2.compute.amazonaws.com
   become: yes
   tasks:
     - name: Install necessary packages
-      yum:
+      dnf:
         name: ['postgresql', 'postgresql-server']
         state: present
         update_cache: yes
+
+    - name: Initialize PostgreSQL database
+      command: postgresql-setup --initdb
+      become_user: postgres
 
     - name: Start PostgreSQL service
       service:
         name: postgresql
         state: started
         enabled: yes
-      ignore_errors: yes
 
     - name: Get PostgreSQL service status
       command: systemctl status postgresql.service
       register: service_status
       changed_when: false
-      ignore_errors: true
 
     - name: Print PostgreSQL service status
       debug:
