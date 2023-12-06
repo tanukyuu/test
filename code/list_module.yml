@@ -4,7 +4,7 @@
   tasks:
     - name: List collections in ansible_collections
       shell: |
-        for path in /usr/share/ansible/collections/ansible_collections/*/*; do
+        for path in /usr/share/ansible/collections/*/*; do
           if [[ -d "$path" ]]; then
             echo "$path"
           fi
