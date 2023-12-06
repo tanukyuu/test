@@ -9,12 +9,12 @@
       debug:
         var: collections.stdout_lines
 
-    - name: List modules in collections
-      command: ls -l /usr/share/ansible/collections/ansible_collections/{{ item }}/plugins/modules
+    - name: List sub-collections in collections
+      command: ls -l /usr/share/ansible/collections/ansible_collections/{{ item }}
       loop: "{{ collections.stdout_lines }}"
-      register: modules
+      register: sub_collections
       ignore_errors: true
 
-    - name: Print modules
+    - name: Print sub-collections
       debug:
-        var: modules.results
+        var: sub_collections.results
