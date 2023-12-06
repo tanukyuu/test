@@ -1,43 +1,19 @@
 ---
-- name: Postgre SQL Database installation and configuration
+- name: Install PostgreSQL
   hosts: ec2-35-88-142-250.us-west-2.compute.amazonaws.com
-  become: true
-  become_user: root
+  become: yes
   tasks:
-  - name: Get the OS platform
-    command: cat /etc/os-release
-    register: osRelease
+    - name: Install necessary packages
+      yum:
+        name: ['postgresql', 'postgresql-server']
+        state: present
+        update_cache: yes
 
-  - name: Print the os-release
-    debug: msg={{ osRelease.stdout }}
+    - name: Initialize PostgreSQL
+      command: /usr/bin/postgresql-setup --initdb
 
-  - name: Update packages
-    yum: name=* state=latest
-
-  - name: Create dummy redhat-release
-    copy:
-      content: "Red Hat Enterprise Linux Server release 7 (Maipo)"
-      dest: /etc/redhat-release
-
-  - name: Install PostgreSQL repository
-    command: rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
-
-  - name: Install PostgreSQL server
-    yum:
-      name: ['postgresql12', 'postgresql12-server']
-      state: present
-
-  - name: Check if Database is initialized
-    stat:
-      path: /var/lib/pgsql/12/data/pg_hba.conf
-    register: result
-
-  - name: Initialize the database
-    command: /usr/pgsql-12/bin/postgresql-12-setup initdb
-    when: result.stat.exists == False
-
-  - name: Ensure PostgreSQL service is running
-    service:
-      name: postgresql-12
-      state: started
-      enabled: yes
+    - name: Ensure PostgreSQL service is running
+      service:
+        name: postgresql
+        state: started
+        enabled: yes
