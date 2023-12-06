@@ -12,7 +12,7 @@
       shell: |
         for path in {{ collection_paths.stdout_lines }}; do
           if [[ -d "$path" ]]; then
-            find "$path" -type d -name 'ansible_collections'
+            find "$path" -type d -path '*ansible_collections/*/*'
           fi
         done
       register: collections
