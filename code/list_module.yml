@@ -1,14 +1,12 @@
----
 - hosts: localhost
   gather_facts: no
   tasks:
-    - name: List collections in ansible_collections
-      shell: |
-        for path in /usr/share/ansible/collections/*/*; do
-          if [[ -d "$path" ]]; then
-            echo "$path"
-          fi
-        done
+    - name: Find collections in ansible_collections
+      find:
+        paths: "/usr/share/ansible/collections/ansible_collections"
+        file_type: directory
       register: collections
 
-    - debug: var=collections.stdout_lines
+    - name: Print collections
+      debug:
+        var: collections.files
