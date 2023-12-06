@@ -3,9 +3,6 @@
   hosts: ec2-35-88-142-250.us-west-2.compute.amazonaws.com
   become: yes
   tasks:
-    - name: Enable PostgreSQL 12
-      command: amazon-linux-extras enable postgresql12
-
     - name: Install necessary packages
       yum:
         name: ['postgresql', 'postgresql-server']
@@ -13,7 +10,7 @@
         update_cache: yes
 
     - name: Initialize PostgreSQL
-      command: /usr/bin/postgresql-setup --initdb
+      command: service postgresql initdb
 
     - name: Ensure PostgreSQL service is running
       service:
