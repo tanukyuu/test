@@ -3,9 +3,6 @@
   hosts: ec2-35-88-142-250.us-west-2.compute.amazonaws.com
   become: yes
   tasks:
-    - name: Enable PostgreSQL Amazon Extras repository
-      command: amazon-linux-extras enable postgresql10
-
     - name: Install necessary packages
       yum:
         name: ['postgresql', 'postgresql-server']
@@ -28,13 +25,3 @@
     - name: Print PostgreSQL service status
       debug:
         msg: "{{ service_status.stdout_lines }}"
-
-    - name: Get system logs
-      command: journalctl -xe
-      register: system_logs
-      changed_when: false
-      ignore_errors: true
-
-    - name: Print system logs
-      debug:
-        msg: "{{ system_logs.stdout_lines }}"
