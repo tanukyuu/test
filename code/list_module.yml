@@ -1,10 +1,20 @@
 - hosts: localhost
   gather_facts: no
   tasks:
-    - name: List collections
-      command: ls -l /usr/share/ansible/collections/ansible_collections
+    - name: Get list of collections
+      command: ls /usr/share/ansible/collections/ansible_collections
       register: collections
 
     - name: Print collections
       debug:
         var: collections.stdout_lines
+
+    - name: List modules in collections
+      command: ls -l /usr/share/ansible/collections/ansible_collections/{{ item }}/plugins/modules
+      loop: "{{ collections.stdout_lines }}"
+      register: modules
+      ignore_errors: true
+
+    - name: Print modules
+      debug:
+        var: modules.results
