@@ -2,17 +2,11 @@
 - hosts: localhost
   gather_facts: no
   tasks:
-    - name: Get collection paths
-      shell: ansible-config dump | grep COLLECTIONS_PATHS | awk -F= '{print $2}' | tr -d '[:space:]' | tr ',' '\n'
-      register: collection_paths
-
-    - debug: var=collection_paths.stdout_lines
-
-    - name: List collections in paths
+    - name: List collections in ansible_collections
       shell: |
-        for path in {{ collection_paths.stdout_lines }}; do
+        for path in /usr/share/ansible/collections/ansible_collections/*/*; do
           if [[ -d "$path" ]]; then
-            find "$path" -type d -path '*ansible_collections/*/*'
+            echo "$path"
           fi
         done
       register: collections
