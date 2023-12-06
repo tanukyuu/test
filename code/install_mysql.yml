@@ -4,21 +4,19 @@
   become: yes
   tasks:
     - name: Install EPEL repo
-      yum:
-        name: epel-release
-        state: present
+      command: amazon-linux-extras install epel -y
 
     - name: Install necessary packages
       yum:
-        name: ['postgresql', 'postgresql-server']
+        name: ['postgresql96', 'postgresql96-server']
         state: present
         update_cache: yes
 
     - name: Initialize PostgreSQL
-      command: service postgresql initdb
+      command: /usr/bin/postgresql96-setup initdb
 
     - name: Ensure PostgreSQL service is running
       service:
-        name: postgresql
+        name: postgresql-9.6
         state: started
         enabled: yes
