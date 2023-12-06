@@ -1,11 +1,11 @@
-- hosts: awx
+- hosts: aap
   gather_facts: no
   tasks:
-    - name: Fetch AWX configuration file
+    - name: Fetch AAP configuration file
       slurp:
-        src: /etc/tower/settings.py
-      register: awx_config
+        src: /etc/ansible/ansible.cfg
+      register: aap_config
 
-    - name: Print AWX configuration file
+    - name: Print AAP configuration file
       debug:
-        var: awx_config.content | b64decode
+        var: aap_config.content | b64decode
