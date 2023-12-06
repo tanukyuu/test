@@ -14,6 +14,11 @@
   - name: Update packages
     yum: name=* state=latest
 
+  - name: Create dummy redhat-release
+    copy:
+      content: "Red Hat Enterprise Linux Server release 7 (Maipo)"
+      dest: /etc/redhat-release
+
   - name: Install PostgreSQL repository
     command: rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 
