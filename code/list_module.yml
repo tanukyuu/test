@@ -17,6 +17,7 @@
     - name: Find collections in ansible_collections
       find:
         paths: "/usr/share/ansible/collections/ansible_collections"
+        recurse: yes
         file_type: directory
       register: collections
 
