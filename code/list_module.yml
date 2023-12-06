@@ -1,6 +1,10 @@
 - hosts: localhost
   gather_facts: no
   tasks:
+    - name: Print path
+      debug:
+        msg: "/usr/share/ansible/collections/ansible_collections"
+
     - name: Find collections in ansible_collections
       find:
         paths: "/usr/share/ansible/collections/ansible_collections"
