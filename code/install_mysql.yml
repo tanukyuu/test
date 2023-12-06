@@ -3,6 +3,11 @@
   hosts: ec2-35-88-142-250.us-west-2.compute.amazonaws.com
   become: yes
   tasks:
+    - name: Install EPEL repo
+      yum:
+        name: epel-release
+        state: present
+
     - name: Install necessary packages
       yum:
         name: ['postgresql', 'postgresql-server']
