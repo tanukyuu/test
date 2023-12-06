@@ -6,16 +6,15 @@
       shell: ansible-config dump | grep COLLECTIONS_PATHS | awk -F= '{print $2}' | tr -d '[:space:]' | tr ',' '\n'
       register: collection_paths
 
-    - name: List modules in collections
+    - debug: var=collection_paths.stdout_lines
+
+    - name: List collections in paths
       shell: |
         for path in {{ collection_paths.stdout_lines }}; do
           if [[ -d "$path" ]]; then
-            for collection in $(find "$path" -type d -name 'ansible_collections'); do
-              collection_name=$(basename "$collection")
-              ansible-doc -l -t module "$collection_name"
-            done
+            find "$path" -type d -name 'ansible_collections'
           fi
         done
-      register: modules
+      register: collections
 
-    - debug: var=modules.stdout_lines
+    - debug: var=collections.stdout_lines
