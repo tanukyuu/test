@@ -1,11 +1,19 @@
-- hosts: aap
+- hosts: aap_host
   gather_facts: no
   tasks:
-    - name: Fetch AAP configuration file
-      slurp:
-        src: /etc/ansible/ansible.cfg
-      register: aap_config
+    - name: Get list of collections in AAP
+      command: ansible-galaxy collection list
+      register: aap_collections
 
-    - name: Print AAP configuration file
-      debug:
-        var: aap_config.content | b64decode
+- hosts: controller_host
+  gather_facts: no
+  tasks:
+    - name: Get list of collections in Ansible Automation Controller
+      command: ansible-galaxy collection list
+      register: controller_collections
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Compare collections
+      script: compare_collections.py "{{ hostvars['aap_host']['aap_collections']['stdout_lines'] }}" "{{ hostvars['controller_host']['controller_collections']['stdout_lines'] }}"
