@@ -1,0 +1,32 @@
+---
+- name: Gather EC2 facts for all regions
+  loop: "{{ ec2_regions }}"
+  tasks:
+    - name: Retrieve vpc information for {{ item }}
+      amazon.aws.ec2_vpc_net_info:
+        region: "{{ item }}"
+      register: vpc_info
+      delegate_to: localhost
+
+    - name: Retrieve info for ec2 instances
+      amazon.aws.ec2_instance_info:
+        region: "{{ item }}"
+      register: ec2_instance_info
+      delegate_to: localhost
+
+    - name: Retrieve information about Internet Gateways IGWs
+      amazon.aws.ec2_vpc_igw_info:
+        region: "{{ item }}"
+      register: igw_info
+      delegate_to: localhost
+
+    - name: Set facts all info for {{ item }}
+      set_fact:
+        "{{ item | replace('-', '_') }}": 
+          vpc_info:  '{{ vpc_info }}'
+          ec2_instance_info: '{{ ec2_instance_info }}'
+          igw_info: '{{ igw_info }}'
+
+    - name: Set facts all info for {{ region }} 
+       set_fact:
+        all_ec2_regions: "{{ all_ec2_regions | default ([]) + [{ item|replace('-','_'): hostvars[inventory_hostname][item|replace('-','_')]}] }}"
