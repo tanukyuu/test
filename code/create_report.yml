@@ -1,0 +1,13 @@
+---
+- name: build report with facts
+  hosts: ec2-34-222-48-92.us-west-2.compute.amazonaws.com
+  gather_facts: true
+
+  tasks:
+    - name: load retrieve info role
+      include_role:
+        name: "/roles/retrieve_info"
+
+    - name: build a report
+      include_role:
+        name: "/roles/build_report"
