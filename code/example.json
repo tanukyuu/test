@@ -1,0 +1,55 @@
+{
+    "regions": [
+        {
+            "region": "us-east-1",
+            "instances": [
+                {
+                    "os": "centos 7",
+                    "ip": "10.62.35.114",
+                    "security_group": "sc-00123u321",
+                    "instance_name": "test"
+                },
+                {
+                    "os": "ubuntu 18.04",
+                    "ip": "10.62.35.115",
+                    "security_group": "sc-00123u322",
+                    "instance_name": "test2"
+                }
+            ]
+        },
+        {
+            "region": "us-west-1",
+            "instances": [
+                {
+                    "os": "centos 7",
+                    "ip": "10.62.35.116",
+                    "security_group": "sc-00123u323",
+                    "instance_name": "test3"
+                },
+                {
+                    "os": "ubuntu 18.04",
+                    "ip": "10.62.35.117",
+                    "security_group": "sc-00123u324",
+                    "instance_name": "test4"
+                }
+            ]
+        },
+        {
+            "region": "us-west-2",
+            "instances": [
+                {
+                    "os": "centos 7",
+                    "ip": "10.62.35.118",
+                    "security_group": "sc-00123u325",
+                    "instance_name": "test5"
+                },
+                {
+                    "os": "ubuntu 18.04",
+                    "ip": "10.62.35.119",
+                    "security_group": "sc-00123u326",
+                    "instance_name": "test6"
+                }
+            ]
+        }
+    ]
+}
