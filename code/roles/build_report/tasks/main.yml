@@ -1,0 +1,14 @@
+---
+- name: Deploy Jinja2 template
+  hosts: ec2-34-222-48-92.us-west-2.compute.amazonaws.com
+  become: yes
+  tasks:
+    - name: start httpd
+      become: true
+      service:
+        name: httpd
+        state: started
+    - name: Apply Jinja2 template
+      template:
+        src: report.j2
+        dest: /var/www/html/index.html
