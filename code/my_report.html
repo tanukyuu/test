@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AWS REPORT</title>
+    <style>
+        .subtable { display: none; }
+        .subtable.active { display: table; }
+    </style>
+    <script>
+        function toggleSubtable(id) {
+            var subtable = document.getElementById(id);
+            subtable.classList.toggle('active');
+        }
+    </script>
+</head>
+<body>
+    <h1>AWS REPORT</h1>
+    <label>User: Tuan</label>
+    <table>
+        <tr onclick="toggleSubtable('us-east-1')">
+            <td>us-east-1</td>
+            <td>
+                <table id="us-east-1" class="subtable">
+                    <tr>
+                        <td>os</td>
+                        <td>ip</td>
+                        <td>security group</td>
+                        <td>instance name</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr onclick="toggleSubtable('us-west-1')">
+            <td>us-west-1</td>
+            <td>
+                <table id="us-west-1" class="subtable">
+                    <tr>
+                        <td>os</td>
+                        <td>ip</td>
+                        <td>security group</td>
+                        <td>instance name</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr onclick="toggleSubtable('us-west-2')">
+            <td>us-west-2</td>
+            <td>
+                <table id="us-west-2" class="subtable">
+                    <tr>
+                        <td>os</td>
+                        <td>ip</td>
+                        <td>security group</td>
+                        <td>instance name</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
