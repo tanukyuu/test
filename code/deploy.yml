@@ -5,5 +5,5 @@
   tasks:
     - name: Apply Jinja2 template
       template:
-        src: helloworld.j2
+        src: my_report.j2
         dest: /var/www/html/index.html
