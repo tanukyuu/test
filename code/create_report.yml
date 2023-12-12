@@ -5,9 +5,6 @@
 
   tasks:
     - name: load retrieve info role
-      include_role:
-        name: "/roles/retrieve_info"
-
-    - name: build a report
-      include_role:
-        name: "/roles/build_report"
+      import_playbook: retrieve_info.yml
+    - name: deploy report
+      import_playbook: deploy_report.yml
