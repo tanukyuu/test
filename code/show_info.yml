@@ -1,0 +1,10 @@
+---
+- name: Display ticket info
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Display ticket info
+      debug:
+        msg: 
+          - "Ticket Number: {{ ticket_number }}"
+          - "Ticket Open Time: {{ ticket_open_time }}"
