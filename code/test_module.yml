@@ -2,6 +2,8 @@
 - hosts: localhost
   gather_facts: no
   tasks:
+    - name: Install awx.awx collection
+      command: ansible-galaxy collection install awx.awx
     - name: Check if awx.awx collection is installed
       command: ansible-galaxy collection list
       register: output
