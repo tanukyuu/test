@@ -20,16 +20,20 @@
         force_basic_auth: yes
         return_content: yes
       register: current_inventory
-
+    - name: Print current inventory
+      debug:
+        var: current_inventory.content
+        
     - name: Read previous inventory from file
       shell: cat /etc/previous_inventory.json
       register: previous_inventory
+      when: previous_inventory_file.stat.exists and previous_inventory_file.stat.size > 0
 
     - name: Compare current and previous inventory
       debug:
         msg: "Inventory has changed"
       when: current_inventory.content != previous_inventory.stdout
-      
+
     - name: Save current inventory to file
       shell: echo '{{ current_inventory.content | from_json }}' > /etc/previous_inventory.json
       when: (current_inventory.content | from_json) == (previous_inventory.stdout | from_json)
