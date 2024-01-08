@@ -4,6 +4,10 @@
   collections:
     - awx.awx
   tasks:
+    - name: Set ANSIBLE_COLLECTIONS_PATHS environment variable
+      ansible.builtin.set_fact:
+        ansible_env:
+          ANSIBLE_COLLECTIONS_PATHS: "/runner/requirements_collections/ansible_collections"
     - name: Check if previous_inventory.json exists
       stat:
         path: /etc/previous_inventory.json
@@ -14,18 +18,12 @@
         path: /etc/previous_inventory.json
         state: touch
       when: not previous_inventory_file.stat.exists
-    - name: Test awx.awx collection
-      tower_ping:
-        tower_username: "admin"
-        tower_password: "ansible123!"
-        tower_verify_ssl: false
-      register: result
-
-    - name: Print test result
+    - name: Print ANSIBLE_COLLECTIONS_PATHS
       debug:
-        var: result
+        msg: "{{ ansible_env.ANSIBLE_COLLECTIONS_PATHS }}"
+        
     - name: Add hosts to inventory
-      tower_host:
+      awx.awx.tower_host:
         name: "testhost"
         description: "rhel host"
         inventory: "rhel inventory"
