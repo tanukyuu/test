@@ -14,7 +14,7 @@
 
     - name: Fetch current inventory
       uri:
-        url: "https://localhost/api/v2/inventories/2/"
+        url: "https://controller-443-omslkrgqpwll.env.play.instruqt.com/api/v2/inventories/2/"
         user: "admin"
         password: "ansible123!"
         force_basic_auth: yes
