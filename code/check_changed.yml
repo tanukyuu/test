@@ -16,7 +16,17 @@
         path: /etc/previous_inventory.json
         state: touch
       when: not previous_inventory_file.stat.exists
+    - name: Test awx.awx collection
+      awx.awx.tower_ping:
+        tower_host: "https://controller-443-omslkrgqpwll.env.play.instruqt.com"
+        tower_username: "admin"
+        tower_password: "ansible123!"
+        tower_verify_ssl: false
+      register: result
 
+    - name: Print test result
+      debug:
+        var: result
     - name: Add hosts to inventory
       awx.awx.tower_host:
         name: "testhost"
