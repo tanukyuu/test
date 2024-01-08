@@ -18,7 +18,6 @@
       when: not previous_inventory_file.stat.exists
     - name: Test awx.awx collection
       awx.awx.tower_ping:
-        tower_host: "https://localhost"
         tower_username: "admin"
         tower_password: "ansible123!"
         tower_verify_ssl: false
