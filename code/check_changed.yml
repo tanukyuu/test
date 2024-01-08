@@ -13,9 +13,8 @@
       when: not previous_inventory_file.stat.exists
 
     - name: Add hosts to inventory
-      loop: "{{ host_list }}"
-      tower_host:
-        name: "{{ item }}"
+      awx.awx.tower_host:
+        name: "testhost"
         description: "rhel host"
         inventory: "rhel inventory"
         state: present
