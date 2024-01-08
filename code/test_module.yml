@@ -12,12 +12,12 @@
     - name: Print message if awx.awx is installed
       debug:
         msg: "The awx.awx collection is installed."
-      when: "'awx.awx' in output.stdout_lines"
+      when: "output.stdout_lines | select('search', '^awx.awx') | list | length > 0"
 
     - name: Print message if awx.awx is not installed
       debug:
         msg: "The awx.awx collection is not installed."
-      when: "'awx.awx' not in output.stdout_lines"
+      when: "output.stdout_lines | select('search', '^awx.awx') | list | length == 0"
 
     - name: Get list of collections in Ansible Automation Controller
       command: ansible-galaxy collection list
