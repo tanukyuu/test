@@ -1,6 +1,8 @@
 ---
 - hosts: localhost
   gather_facts: no
+  collections:
+    - awx.awx
   tasks:
     - name: Set ANSIBLE_COLLECTIONS_PATHS environment variable
       ansible.builtin.set_fact:
