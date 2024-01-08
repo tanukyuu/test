@@ -28,8 +28,7 @@
     - name: Compare current and previous inventory
       fail:
         msg: "Inventory has changed"
-      when: current_inventory.stdout != previous_inventory.stdout
-
+      when: current_inventory.content != previous_inventory.stdout
     - name: Save current inventory to file
-      shell: echo '{{ current_inventory.stdout }}' > /etc/previous_inventory.json
-      when: current_inventory.stdout == previous_inventory.stdout
+      shell: echo '{{ current_inventory.content | from_json }}' > /etc/previous_inventory.json
+      when: (current_inventory.content | from_json) == (previous_inventory.stdout | from_json)
