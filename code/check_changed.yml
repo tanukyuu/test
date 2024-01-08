@@ -26,9 +26,10 @@
       register: previous_inventory
 
     - name: Compare current and previous inventory
-      fail:
+      debug:
         msg: "Inventory has changed"
       when: current_inventory.content != previous_inventory.stdout
+      
     - name: Save current inventory to file
       shell: echo '{{ current_inventory.content | from_json }}' > /etc/previous_inventory.json
       when: (current_inventory.content | from_json) == (previous_inventory.stdout | from_json)
