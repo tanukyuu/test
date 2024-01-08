@@ -15,3 +15,7 @@
       debug:
         msg: "The awx.awx collection is not installed."
       when: "'awx.awx' not in output.stdout_lines"
+
+    - name: Get list of collections in Ansible Automation Controller
+      command: ansible-galaxy collection list
+      register: controller_collections
