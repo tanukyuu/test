@@ -27,6 +27,7 @@
         tower_host: "https://controller-443-omslkrgqpwll.env.play.instruqt.com"
         tower_username: "admin"
         tower_password: "ansible123!"
+        tower_verify_ssl: false
 
     - name: Read previous inventory from file
       shell: cat /etc/previous_inventory.json
