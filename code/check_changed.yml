@@ -13,7 +13,12 @@
       when: not previous_inventory_file.stat.exists
 
     - name: Fetch current inventory
-      shell: ansible-inventory -i /etc/hosts --list
+      tower_inventory:
+        name: "rhel inventory"
+        organization: "Default"
+        controller_host: "https://localhost"
+        controller_username: "admin"
+        controller_password: "ansible123!"
       register: current_inventory
 
     - name: Read previous inventory from file
@@ -22,3 +27,9 @@
 
     - name: Compare current and previous inventory
       fail:
+        msg: "Inventory has changed"
+      when: current_inventory.stdout != previous_inventory.stdout
+
+    - name: Save current inventory to file
+      shell: echo '{{ current_inventory.stdout }}' > /etc/previous_inventory.json
+      when: current_inventory.stdout == previous_inventory.stdout
