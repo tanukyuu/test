@@ -12,28 +12,23 @@
         state: touch
       when: not previous_inventory_file.stat.exists
 
-    - name: Fetch current inventory
-      uri:
-        url: "https://controller-443-omslkrgqpwll.env.play.instruqt.com/api/v2/inventories/2/"
-        user: "admin"
-        password: "ansible123!"
-        force_basic_auth: yes
-        return_content: yes
-      register: current_inventory
-    - name: Print current inventory
-      debug:
-        var: current_inventory.content
-        
+    - name: Add hosts to inventory
+      loop: "{{ host_list }}"
+      tower_host:
+        name: "{{ item }}"
+        description: "rhel host"
+        inventory: "rhel inventory"
+        state: present
+        enabled: true
+        tower_host: "https://controller-443-omslkrgqpwll.env.play.instruqt.com"
+        tower_username: "admin"
+        tower_password: "ansible123!"
+
     - name: Read previous inventory from file
       shell: cat /etc/previous_inventory.json
       register: previous_inventory
-      when: previous_inventory_file.stat.exists and previous_inventory_file.stat.size > 0
 
     - name: Compare current and previous inventory
-      debug:
+      fail:
         msg: "Inventory has changed"
-      when: current_inventory.content != previous_inventory.stdout
-
-    - name: Save current inventory to file
-      shell: echo '{{ current_inventory.content | from_json }}' > /etc/previous_inventory.json
-      when: (current_inventory.content | from_json) == (previous_inventory.stdout | from_json)
+      when: current_inventory.stdout != previous_inventory.stdout
