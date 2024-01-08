@@ -13,12 +13,12 @@
       when: not previous_inventory_file.stat.exists
 
     - name: Fetch current inventory
-      tower_host:
-        name: "rhel inventory"
-        organization: "Default"
-        tower_host: "https://localhost"
-        tower_username: "admin"
-        tower_password: "ansible123!"
+      uri:
+        url: "https://localhost/api/v2/inventories/2/"
+        user: "admin"
+        password: "ansible123!"
+        force_basic_auth: yes
+        return_content: yes
       register: current_inventory
 
     - name: Read previous inventory from file
