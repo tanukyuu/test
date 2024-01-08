@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Check if previous_inventory.json exists
+      stat:
+        path: /etc/previous_inventory.json
+      register: previous_inventory_file
+
+    - name: Create previous_inventory.json if it doesn't exist
+      file:
+        path: /etc/previous_inventory.json
+        state: touch
+      when: not previous_inventory_file.stat.exists
+
+    - name: Fetch current inventory
+      shell: ansible-inventory -i /etc/hosts --list
+      register: current_inventory
+
+    - name: Read previous inventory from file
+      shell: cat /etc/previous_inventory.json
+      register: previous_inventory
+
+    - name: Compare current and previous inventory
+      fail:
