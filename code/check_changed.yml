@@ -1,6 +1,13 @@
 ---
 - hosts: localhost
   tasks:
+  - hosts: localhost
+    gather_facts: no
+    tasks:
+    - name: Set ANSIBLE_COLLECTIONS_PATHS environment variable
+      ansible.builtin.set_fact:
+        ansible_env:
+          ANSIBLE_COLLECTIONS_PATHS: "/runner/requirements_collections/ansible_collections"
     - name: Check if previous_inventory.json exists
       stat:
         path: /etc/previous_inventory.json
