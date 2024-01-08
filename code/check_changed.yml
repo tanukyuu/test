@@ -13,7 +13,7 @@
       when: not previous_inventory_file.stat.exists
 
     - name: Add hosts to inventory
-      awx.awx.tower_host:
+      ansible.tower.tower_host:
         name: "testhost"
         description: "rhel host"
         inventory: "rhel inventory"
